@@ -1,0 +1,10 @@
+---
+
+- name: Ensure apt dependencies are installed.
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gpg
+    state: present

@@ -1,0 +1,39 @@
+---
+- name: Converge - Gather facts
+  hosts: all
+  gather_facts: no
+
+  become: yes
+
+  tasks:
+    - name: Gather Facts
+      ansible.builtin.setup:
+        gather_subset:
+          - min
+          - network
+      register: setup_result
+      until: setup_result.failed != true
+      retries: 10
+
+- name: Get Swarm facts
+  hosts: k8s_master[0]
+  gather_facts: no
+  run_once: yes
+  become: yes
+  tasks:
+    - name: Get Cluster info
+      ansible.builtin.shell: "kubectl get node"
+      register: output_get_node
+      until: output_get_node.stdout_lines | length == 8
+      retries: 60
+
+    - debug:
+        var: output_get_node.stdout_lines
+
+    - name: Evaluate number of lines in output
+      assert:
+        that: output_get_node.stdout_lines | length == 8
+
+    - name: "Evaluate if 'worker' is in scaleup_host's ({{ hostvars[groups['scale_up_host'][0]]['ansible_facts']['hostname'] }}) labels"
+      assert:
+        that: "{{'worker' in (output_get_node.stdout_lines | select('search', hostvars[groups['scale_up_host'][0]]['ansible_facts']['hostname']) | first )}}"

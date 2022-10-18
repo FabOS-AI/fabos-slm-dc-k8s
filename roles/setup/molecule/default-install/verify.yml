@@ -1,0 +1,35 @@
+---
+- name: Converge - Gather facts
+  hosts: all
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: Gather Facts
+      ansible.builtin.setup:
+        gather_subset:
+          - min
+          - network
+      register: setup_result
+      until: setup_result.failed != true
+      retries: 10
+
+- name: Get Cluster node facts
+  hosts: k8s_master[0]
+  gather_facts: no
+  run_once: yes
+  become: yes
+  tasks:
+    - name: Get a list of all node objects
+      kubernetes.core.k8s_info:
+        api_version: v1
+        kind: Node
+      register: nodes_output
+      changed_when: false
+
+    - name: Print cluster nodes
+      debug:
+        var: nodes_output.stdout_lines
+
+    - name: Check node count (after scaleup)
+      assert:
+        that: nodes_output.stdout_lines | length == 7

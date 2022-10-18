@@ -1,0 +1,17 @@
+---
+
+- name: "Query node data at cluster"
+  shell:
+    cmd: "kubectl get nodes -o json"
+  register: output_node_data
+
+- name: "Select node data"
+  set_fact:
+    node_meta: "{{ (output_node_data.stdout | from_json)['items'] | list}}"
+
+- name: "Add labels to k8s_node hosts"
+  shell:
+    cmd: "kubectl label nodes {{ item.0 | lower }} kubernetes.io/role={{ item.1 }}"
+  when: not item.1 in (node_meta | json_query('[?metadata.name==`' + (item.0 | lower) + '`].metadata.labels.\"kubernetes.io/role\"') | default([]))
+  ignore_errors: yes
+  loop:  "{{ groups['k8s_node'] |product(['worker'])|list }}"
