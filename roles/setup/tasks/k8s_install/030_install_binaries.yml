@@ -8,13 +8,16 @@
   when: ansible_os_family == "Debian"
   retries: 20
   register: apt_cache_output
-  until: apt_cache_output.rc == 0
+  until: apt_cache_output.failed == false
+
+#- debug:
+#    var: apt_cache_output
 
 - name: "Include fabos.docker.setup preinstall - Remove apt lock file"
   file:
     state: absent
     path: "/var/lib/apt/lists/lock"
-  when: apt_cache_output.rc != 0
+  when: apt_cache_output.failed
 
 - name: dpkg --configure -a
   ansible.builtin.command: dpkg --configure -a
