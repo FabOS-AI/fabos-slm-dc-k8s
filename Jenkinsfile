@@ -51,12 +51,13 @@ for (kv in mapToList(scenarios)) {
         docker.image('fabos4ai/molecule:4.0.1').inside('-u root') {
 
             try {
-                stage("${platform} - Destroy") {
-                    sh "cd ./roles/setup && molecule destroy -s install-${platform}"
-                }
 
                 stage("${platform} - Dependencies") {
                     sh "ansible-galaxy install -f -r requirements.yml"
+                }
+
+                stage("${platform} - Destroy") {
+                    sh "cd ./roles/setup && molecule destroy -s install-${platform}"
                 }
 
                 stage("${platform} - Create") {
