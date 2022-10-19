@@ -68,11 +68,12 @@ for (kv in mapToList(scenarios)) {
                         sh "cd ./roles/${role} && molecule test -s ${scenario}-${platform}  --destroy never"
                     }
                 }
-            } finally {
-                stage("${platform} - Destroy") {
-                    sh "cd ./roles/setup && molecule destroy -s install-${platform}"
-                }
             }
+//             finally {
+//                 stage("${platform} - Destroy") {
+//                     sh "cd ./roles/setup && molecule destroy -s install-${platform}"
+//                 }
+//             }
 
         }
     }
