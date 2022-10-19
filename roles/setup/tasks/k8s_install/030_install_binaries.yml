@@ -28,7 +28,7 @@
 
 - name: Install packages
   apt:
-    name: "{{ item.name | default(item) }}"
+    name: "{{ item.name | default(item) }}={{ kubernetes_version }}.*"
     state: present
   loop: "{{ kubernetes_packages }}"
   register: apt_action
