@@ -9,10 +9,10 @@ kubelet_environment_file_path: /etc/default/kubelet
 
 kubernetes_version: '1.21'
 kubernetes_packages:
-  - name: kubelet
-  - name: kubectl
-  - name: kubeadm
-  - name: kubernetes-cni
+  - name: "kubelet={{ kubernetes_version }}.*"
+  - name: "kubectl={{ kubernetes_version }}.*"
+  - name: "kubeadm={{ kubernetes_version }}.*"
+  - name: "kubernetes-cni"
 
 # Note that xenial repo is used for all Debian derivatives at this time.
 kubernetes_apt_release_channel: main
