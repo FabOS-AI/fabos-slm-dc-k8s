@@ -13,12 +13,12 @@
   retries: 10
   delay: "{{ retry_delay_stagger | random + 3 }}"
 
-- name: dpkg --configure -a
-  ansible.builtin.command: dpkg --configure -a
-  changed_when: false
-  register: dpkg_config
-  retries: 20
-  until: dpkg_config.rc == 0
+#- name: dpkg --configure -a
+#  ansible.builtin.command: dpkg --configure -a
+#  changed_when: false
+#  register: dpkg_config
+#  retries: 20
+#  until: dpkg_config.rc == 0
 
 - name: (Debian) Update APT cache
   apt:
@@ -26,6 +26,7 @@
     state: present
     update_cache: true
   when: ansible_os_family == "Debian"
+  changed_when: false
 
 - name: Uninstall packages
   ansible.builtin.apt:

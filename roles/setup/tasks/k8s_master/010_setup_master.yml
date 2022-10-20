@@ -16,4 +16,4 @@
     kubeadm config images pull
   register: kubeadmin_download
   register: preload_output
-  changed_when: preload_output.rc == 0
+  changed_when: preload_output.msg != ""

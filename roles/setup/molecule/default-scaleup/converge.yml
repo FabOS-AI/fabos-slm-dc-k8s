@@ -21,14 +21,14 @@
   collections:
     - fabos.docker
   tasks:
-    - name: "Include fabos.docker.setup preinstall - Remove apt lock file"
-      file:
-        state: absent
-        path: "/var/lib/apt/lists/lock"
-    - name: "Include fabos.docker.setup preinstall - Update APT Cache"
-      apt:
-        update_cache: yes
-        force_apt_get: yes
+#    - name: "Include fabos.docker.setup preinstall - Remove apt lock file"
+#      file:
+#        state: absent
+#        path: "/var/lib/apt/lists/lock"
+#    - name: "Include fabos.docker.setup preinstall - Update APT Cache"
+#      apt:
+#        update_cache: yes
+#        force_apt_get: yes
     - name: "Include fabos.docker.setup - install"
       include_role:
         name: fabos.docker.setup
@@ -41,10 +41,10 @@
   collections:
     - fabos.k8s
   tasks:
-    - name: "Include fabos.docker.setup preinstall - Update APT Cache"
-      apt:
-        update_cache: yes
-        force_apt_get: yes
+#    - name: "Include fabos.docker.setup preinstall - Update APT Cache"
+#      apt:
+#        update_cache: yes
+#        force_apt_get: yes
     - name: "Include fabos.k8s.setup - install"
       include_role:
         name: fabos.k8s.setup

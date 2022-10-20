@@ -5,6 +5,7 @@
   shell: >
     kubeadm init phase upload-certs --upload-certs --config {{ kubernetes_kubeadm_kubelet_config_file_path }} | awk '!/^(\[)/'
   register: output_upload_certs
+  changed_when: false
 
 
 ### MASTER #############################################################################################################

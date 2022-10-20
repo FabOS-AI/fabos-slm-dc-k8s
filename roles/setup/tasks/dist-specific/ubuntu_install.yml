@@ -33,6 +33,7 @@
 
 - name: Pre-pull kubernetes images
   shell: kubeadm config images pull
+  changed_when: false
 
 - name: Check if Kubernetes has already been initialized.
   stat:

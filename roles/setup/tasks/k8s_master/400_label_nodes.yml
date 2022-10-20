@@ -3,6 +3,7 @@
 - name: "Query node data at cluster"
   shell:
     cmd: "kubectl get nodes -o json"
+  changed_when: false
   register: output_node_data
 
 - name: "Select node data"

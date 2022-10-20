@@ -15,21 +15,21 @@
 
 
 - name: Converge - Install docker
-  hosts: all:!scale_up_host!scale_down_host
+  hosts: all:!scale_up_host:!scale_down_host:!haproxy
   gather_facts: no
   become: yes
   become_user: root
   collections:
     - fabos.docker
   tasks:
-    - name: "Include fabos.docker.setup preinstall - Remove apt lock file"
-      file:
-        state: absent
-        path: "/var/lib/apt/lists/lock"
-    - name: "Include fabos.docker.setup preinstall - Update APT Cache"
-      apt:
-        update_cache: yes
-        force_apt_get: yes
+#    - name: "Include fabos.docker.setup preinstall - Remove apt lock file"
+#      file:
+#        state: absent
+#        path: "/var/lib/apt/lists/lock"
+#    - name: "Include fabos.docker.setup preinstall - Update APT Cache"
+#      apt:
+#        update_cache: yes
+#        force_apt_get: yes
     - name: "Include fabos.docker.setup - install"
       include_role:
         name: fabos.docker.setup
@@ -49,16 +49,16 @@
         tasks_from: haproxy.yml
 
 - name: Converge - Install k8s
-  hosts: all:!scale_up_host!scale_down_host!haproxy
+  hosts: all:!scale_up_host:!scale_down_host:!haproxy
   gather_facts: no
   become: yes
   collections:
     - fabos.k8s
   tasks:
-    - name: "Include fabos.docker.setup preinstall - Update APT Cache"
-      apt:
-        update_cache: yes
-        force_apt_get: yes
+#    - name: "Include fabos.docker.setup preinstall - Update APT Cache"
+#      apt:
+#        update_cache: yes
+#        force_apt_get: yes
     - name: "Include fabos.k8s.setup - install"
       include_role:
         name: fabos.k8s.setup

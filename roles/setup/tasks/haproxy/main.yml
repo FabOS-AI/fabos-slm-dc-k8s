@@ -34,11 +34,14 @@
 #    backup: yes
 #    insertafter: EOF
 
-- name: Ensure HAProxy is started and enabled on boot.
-  service:
+- name: Ensure HAProxy is started and enabled on boot
+  ansible.builtin.systemd:
     name: haproxy
     state: restarted
     enabled: yes
+  changed_when: false
+#  register: haproxy_enable_output
+#  failed_when: not haproxy_enable_output.enabled and haproxy_enable_output.state != "started"
 
 #- name: Ensure keepalived is started and enabled on boot.
 #  service:

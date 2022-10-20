@@ -49,6 +49,8 @@
 
 - name: "Run 'Krew install'"
   shell: "/tmp/krew/krew-{{ ansible_system|lower }}_{{ linux_platform }} install krew"
+  register: krew_install_output
+  changed_when: krew_install_output.stdout != ""
 
 #- name: "Add krew to path"
 #  copy:
@@ -81,3 +83,5 @@
     creates: /root/.krew/index/plugins/krew_plugins.yaml
   environment:
     PATH: /root/.krew/bin:{{ ansible_env.PATH }}
+  register: krew_install_output
+  changed_when: krew_install_output.stdout != ""
