@@ -4,8 +4,9 @@ collections:
     type: git
     version: develop
 
-  - name: "https://github.com/ansible-collections/kubernetes.core.git"
-    type: git
-    version: 2.3.1
+# seems like ansible is not using this file
+#  - name: "https://github.com/ansible-collections/kubernetes.core.git"
+#    type: git
+#    version: 2.3.1
 #  - name: kubernetes.core
 #    version: 2.3.1
