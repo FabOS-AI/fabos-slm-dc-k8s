@@ -4,18 +4,19 @@
   gather_facts: no
   become: yes
   tasks:
+
     - name: Get Cluster info
       ansible.builtin.shell: "/usr/local/bin/kubectl get nodes"
       failed_when: false
       register: output_get_node
-      until: output_get_node.stdout_lines | length == 7
+      until: output_get_node.stdout_lines | length == 6
       retries: 60
 
     - debug:
         var: output_get_node.stdout_lines
 
     - assert:
-        that: output_get_node.stdout_lines | length == 7
+        that: output_get_node.stdout_lines | length == 6
 
     - name: "Evaluate if scaledown_host ({{ hostvars[groups['scale_up_host'][0]]['ansible_facts']['hostname'] }}) is in nodes (missing=success)"
       assert:

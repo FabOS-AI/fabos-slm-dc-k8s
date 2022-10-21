@@ -24,7 +24,7 @@
     - name: Get Cluster info
       ansible.builtin.shell: "kubectl get node"
       register: output_get_node
-      until: output_get_node.stdout_lines | length == 8
+      until: output_get_node.stdout_lines | length == 7
       retries: 60
 
     - debug:
@@ -32,7 +32,7 @@
 
     - name: Evaluate number of lines in output
       assert:
-        that: output_get_node.stdout_lines | length == 8
+        that: output_get_node.stdout_lines | length == 7
 
     - name: "Evaluate if 'worker' is in scaleup_host's ({{ hostvars[groups['scale_up_host'][0]]['ansible_facts']['hostname'] }}) labels"
       assert:

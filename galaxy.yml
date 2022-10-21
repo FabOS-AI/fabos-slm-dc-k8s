@@ -39,7 +39,15 @@ tags: [k8s, docker-compose, install, uninstall, scale up, scale down, deploy, un
 # collection label 'namespace.name'. The value is a version range
 # L(specifiers,https://python-semanticversion.readthedocs.io/en/latest/#requirement-specification). Multiple version
 # range specifiers can be set and are separated by ','
-dependencies: {}
+dependencies: {"kubernetes.core": "2.3.0"}
+#dependency:
+#  name: galaxy
+#  options:
+#    ignore-certs: True
+#    ignore-errors: True
+#    role-file: requirements.yml
+#    requirements-file: collections.yml
+
 
 # The URL of the originating SCM repository
 repository: http://example.com/repository
