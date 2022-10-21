@@ -70,7 +70,7 @@ for (kv in mapToList(scenarios)) {
                     def scenario = testList[i][1]
 
                     stage("${platform} - ${scenario}") {
-                        sh "cd ./roles/${role} && molecule test -s ${scenario}-${platform}  --destroy never"
+                        sh "cd ./roles/${role} && molecule -vv test -s ${scenario}-${platform}  --destroy never"
                     }
                 }
             }
