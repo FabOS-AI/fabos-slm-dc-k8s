@@ -18,6 +18,8 @@
   gather_facts: no
   run_once: yes
   become: yes
+  collections:
+    - kubernetes.core
   tasks:
     - name: Get a list of all node objects
       kubernetes.core.k8s_info:
