@@ -75,7 +75,7 @@
         tasks_from: join_nodes.yml
 
 - name: Converge - Label node
-  hosts: scale_up_host
+  hosts: k8s_master[0]
   gather_facts: no
   become: yes
   collections:
