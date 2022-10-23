@@ -12,7 +12,7 @@
 
 - assert:
     that: "nodes_to_label is defined"
-    fail_msg: "Missing variable 'nodes_to_label'
+    fail_msg: "Missing variable 'nodes_to_label'"
 
 - name: "Add labels to k8s_node hosts"
   shell:
