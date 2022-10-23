@@ -101,7 +101,7 @@
         tasks_from: join_masters.yml
 
 - name: Converge - Join nodes
-  hosts: k8s_node
+  hosts: k8s_node:!scale_up_host:!scale_down_host
   gather_facts: no
   become: yes
   collections:
@@ -124,34 +124,3 @@
     - include_role:
         name: fabos.k8s.setup
         tasks_from: node_primer.yml
-
-
-#- name: Converge - Setup First Manager
-#  hosts: docker_manager[0]
-#  gather_facts: no
-#  become: yes
-#  tasks:
-#    - name: "Include fabos.docker_swarm.setup - setup_manager_first.yml"
-#      include_role:
-#        name: setup
-#        tasks_from: setup_manager_first.yml
-#
-#- name: Converge - Setup other Managers
-#  hosts: docker_manager[1:]
-#  gather_facts: no
-#  become: yes
-#  tasks:
-#    - name: "Include fabos.docker_swarm.setup - setup_manager_other.yml"
-#      include_role:
-#        name: setup
-#        tasks_from: setup_manager_other.yml
-#
-#- name: Converge - Setup Workers
-#  hosts: docker_worker:!scale_up_host
-#  gather_facts: no
-#  become: yes
-#  tasks:
-#    - name: "Include fabos.docker_swarm.setup - setup_worker.yml"
-#      include_role:
-#        name: setup
-#        tasks_from: setup_worker.yml
