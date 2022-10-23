@@ -124,7 +124,7 @@
     - debug:
         var: groups
     - set_fact:
-        nodes_to_label: "{{ nodes_to_label|d([]) + _item }}"
+        nodes_to_label: "{{ nodes_to_label|d([]) + item }}"
       loop: "{{ groups['k8s_node'] }}"
       when: item not in groups['scale_up_host']
 
