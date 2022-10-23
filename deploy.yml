@@ -14,7 +14,7 @@
   become: yes
   run_once: yes
   tasks:
-    - name: "Include setup - deploy"
+    - name: "Include use - deploy"
       include_role:
         name: "use"
         tasks_from: deploy.yml

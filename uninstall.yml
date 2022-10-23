@@ -1,0 +1,50 @@
+---
+- name: "Create inventory with target host(s)"
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+    - include_role:
+        name: inventory_helper
+        tasks_from: create_inventory.yml
+
+- name: Converge - Gather facts
+  hosts: all
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: Gather Facts
+      ansible.builtin.setup:
+        gather_subset:
+          - min
+          - network
+      register: setup_result
+      until: setup_result.failed != true
+      retries: 10
+
+
+# NEEDS TO BE IMPLEMENTED .... used kubeadm leave
+
+- name: Converge - Kubeadm reset
+  hosts: k8s
+  gather_facts: yes
+  become: yes
+  collections:
+    - fabos.k8s
+  tasks:
+    - name: "Include fabos.k8s.setup - uninstall"
+      include_role:
+        name: setup
+        tasks_from: uninstall.yml
+
+- name: Converge - Uninstall haproxy
+  hosts: haproxy
+  gather_facts: no
+  become: yes
+  collections:
+    - fabos.k8s
+  tasks:
+    - name: "Include fabos.k8s.setup - haproxy-uninstall.yml"
+      include_role:
+        name: setup
+        tasks_from: haproxy-uninstall.yml
