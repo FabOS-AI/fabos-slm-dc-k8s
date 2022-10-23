@@ -85,3 +85,5 @@
       include_role:
         name: fabos.k8s.setup
         tasks_from: k8s_master/400_label_nodes.yml
+      vars:
+        nodes_to_label: "{{ groups['scale_up_host'] }}"

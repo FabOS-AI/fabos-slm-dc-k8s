@@ -121,6 +121,15 @@
   collections:
     - fabos.k8s
   tasks:
+    - debug:
+        var: groups
+    - set_fact:
+        nodes_to_label: "{{ nodes_to_label|d([]) + _item }}"
+      loop: "{{ groups['k8s_node'] }}"
+      when: item not in groups['scale_up_host']
+
     - include_role:
         name: fabos.k8s.setup
         tasks_from: node_primer.yml
+      vars:
+        nodes_to_label: "{{ nodes_to_label }}"
