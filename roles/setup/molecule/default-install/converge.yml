@@ -130,5 +130,5 @@
     - include_role:
         name: fabos.k8s.setup
         tasks_from: node_primer.yml
-      vars:
-        nodes_to_label: "{{ nodes_to_label }}"
+#      vars:
+#        nodes_to_label: "{{ nodes_to_label }}"
