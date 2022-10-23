@@ -2,6 +2,11 @@
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
+- name: Check if Kubernetes is available
+  stat:
+    path: '/etc/kubernetes'
+  register: kubernetes_etc_stat
+
 - name: Kubeadm reset
   ansible.builtin.shell: "kubeadm reset --force"
   register: output_delete
@@ -11,6 +16,7 @@
   changed_when: output_delete.rc == 0
   until: output_delete.rc == 0 or 'not found' in output_delete.stderr
   retries: 10
+  when: kubernetes_etc_stat.stat.exists
   delay: "{{ retry_delay_stagger | random + 3 }}"
 
 #- name: dpkg --configure -a
@@ -45,4 +51,7 @@
 - name: Delete content in '.kube' directory
   file:
     state: absent
-    path: ~/.kube
+    path: "{{ item }}"
+  loop:
+    - '~/.kube'
+    - '/etc/kubernetes'
