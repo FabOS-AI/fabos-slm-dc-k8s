@@ -122,10 +122,13 @@
   tasks:
     - debug:
         var: groups
-    - set_fact:
+#    - name: "Create empty list if no "
+#      set_fact:
+    - name: "Generate list of nodes to be labeled"
+      set_fact:
         nodes_to_label: "{{ nodes_to_label|d([]) + [item] }}"
       loop: "{{ groups['k8s_node'] }}"
-      when: item not in groups['scale_up_host']
+      when: item not in (groups['scale_up_host'] | default([]))
 
     - include_role:
         name: fabos.k8s.setup
