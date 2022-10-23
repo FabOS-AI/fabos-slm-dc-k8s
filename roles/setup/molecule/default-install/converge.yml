@@ -13,14 +13,6 @@
       until: setup_result.failed != true
       retries: 10
 
-    - debug:
-        var: groups
-    - set_fact:
-        nodes_to_label: "{{ nodes_to_label|d([]) + [item] }}"
-      loop: "{{ groups['k8s_node'] }}"
-      when: item not in groups['scale_up_host']
-
-
 - name: Converge - Install docker
   hosts: all:!scale_up_host:!scale_down_host:!haproxy
   gather_facts: no
