@@ -26,7 +26,7 @@
 # NEEDS TO BE IMPLEMENTED .... used kubeadm leave
 
 - name: Converge - Kubeadm reset
-  hosts: k8s
+  hosts: k8s_master:k8s_node
   gather_facts: yes
   become: yes
   collections:

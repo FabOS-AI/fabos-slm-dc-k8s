@@ -34,7 +34,7 @@
         tasks_from: haproxy.yml
 
 - name: Converge - Install k8s
-  hosts: k8s
+  hosts: k8s_master:k8s_node
   gather_facts: no
   become: yes
   collections:
