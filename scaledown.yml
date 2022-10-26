@@ -31,8 +31,6 @@
   run_once: yes
   gather_facts: no
   become: yes
-  collections:
-    - fabos.k8s
   tasks:
     - name: Include K8s - remove_node.yml
       include_role:
