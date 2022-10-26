@@ -21,7 +21,7 @@
 
 - name: "Compose service id from resource id"
   set_fact:
-    resource_id: "kubernetes_{{ resource_id }}"
+    service_name: "kubernetes_{{ resource_id }}"
 
 #- set_fact:
 #    filter_exp: "{{ 'ID==\"' + resource_id + '\"' | urlencode() }}"
@@ -52,9 +52,10 @@
   set_fact:
     service_nodes: "{{ output_get_service_nodes.json | default([]) }}"
 
-- name: Set Service UUID
-  set_fact:
-    service_id: "{{ (service_nodes | first).ServiceID }}"
+# does not make sense to overwrite service_id here?
+#- name: Set Service UUID
+#  set_fact:
+#    service_id: "{{ (service_nodes | first).ServiceID }}"
 
 - name: Add Nodes to inventory
   include_tasks: helper/add_resource_to_inventory.yml
