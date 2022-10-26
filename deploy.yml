@@ -8,6 +8,20 @@
         name: inventory_helper
         tasks_from: create_inventory.yml
 
+- name: Converge - Gather facts
+  hosts: all
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: Gather Facts
+      ansible.builtin.setup:
+        gather_subset:
+          - min
+          - network
+      register: setup_result
+      until: setup_result.failed != true
+      retries: 10
+
 - name: Deploy on Kubernetes
   hosts: k8s_master[0]
   gather_facts: no
