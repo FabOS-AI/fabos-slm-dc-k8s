@@ -9,7 +9,7 @@
   no_log: true
 - assert:
     that:
-      - resource_id
+      - resource_to_add_id
       - (consul_url is defined) and (consul_url|length > 0)
       - (consul_token is defined) and (consul_token|length > 0)
       - (vault_url is defined) and (vault_url|length > 0)
