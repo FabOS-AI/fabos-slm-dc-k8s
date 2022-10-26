@@ -43,7 +43,7 @@
 - name: Create the the deployment
   kubernetes.core.k8s:
     state: present
-    definition: "{{ item }}"
+    definition: "{{ manifest_file }}"
     kubeconfig: /etc/kubernetes/admin.conf
     namespace: "{{ service_id }}"
-  loop: "{{ definitions }}"
+#  loop: "{{ definitions }}"
