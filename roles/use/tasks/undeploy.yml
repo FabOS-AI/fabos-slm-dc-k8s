@@ -5,7 +5,7 @@
     fail_msg: "Missing variable '{{ item.name }}': {{ item.description }}"
   with_items:
     - { name: "service_id",             description: "Id of the service instance that will be deployed." }
-    - { name: "manifest_file",    description: "Content of Kubernetes manifest file." }
+#    - { name: "manifest_file",    description: "Content of Kubernetes manifest file." }
 
 - name: Install required pip modules
   pip:
