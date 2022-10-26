@@ -6,6 +6,7 @@
   tasks:
     - include_role:
         name: inventory_helper
+        tasks_from: create_inventory.yml
 
 - name: Converge - Install docker
   hosts: all:!scale_up_host:!scale_down_host:!haproxy

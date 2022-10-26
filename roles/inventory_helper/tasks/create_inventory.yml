@@ -8,8 +8,8 @@
   no_log: true
 - assert:
     that:
-#      - resource_id
-      - service_name
+      - resource_id
+#      - service_name
       - (consul_url is defined) and (consul_url|length > 0)
       - (consul_token is defined) and (consul_token|length > 0)
       - (vault_url is defined) and (vault_url|length > 0)
@@ -18,6 +18,10 @@
 
 - set_fact:
     vault_lookup_base_info: "url={{ vault_url }} auth_method=approle role_id={{ vault_approle_role_id }} secret_id={{ vault_approle_secret_id }}"
+
+- name: "Compose service id from resource id"
+  set_fact:
+    resource_id: "kubernetes_{{ resource_id }}"
 
 #- set_fact:
 #    filter_exp: "{{ 'ID==\"' + resource_id + '\"' | urlencode() }}"
