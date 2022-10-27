@@ -41,16 +41,18 @@
     ip_address: "{{ node_info.Node }}"
     username: "{{ lookup('hashi_vault', '{{ vault_lookup_base_info }} secret=resources/data/{{ resource_to_add_id }}:username') }}"
     password: "{{ lookup('hashi_vault', '{{ vault_lookup_base_info }} secret=resources/data/{{ resource_to_add_id }}:password') }}"
-  no_log: false
+  no_log: true
 
 - name: Setup ansible inventory
   add_host:
     name: "{{ ip_address }}"
-    groups: target_host
+    groups:
+      - target_host
+      - k8s_node
     ansible_connection: ssh
     ansible_ssh_user: "{{ username }}"
     ansible_ssh_pass: "{{ password }}"
     ansible_become_pass: "{{ password }}"
     ansible_python_interpreter: /usr/bin/python3
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
-  no_log: false
+  no_log: true
