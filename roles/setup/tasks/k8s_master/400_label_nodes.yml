@@ -18,8 +18,17 @@
     var: "{{ hostvars }}"
 
 - debug:
+    var: "{{ nodes_to_label }}"
+
+- debug:
     var: "{{ hostvars[item] }}"
   loop: "{{ nodes_to_label }}"
+
+- debug:
+    var: "{{ hostvars[nodes_to_label[0]]['hostname'] }}"
+
+- debug:
+    var: "{{ hostvars['10.1.9.37']['hostname'] }}"
 
 - name: "Add labels to k8s_node hosts"
   shell:
