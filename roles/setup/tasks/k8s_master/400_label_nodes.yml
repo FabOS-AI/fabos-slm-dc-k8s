@@ -14,20 +14,32 @@
     that: "nodes_to_label is defined"
     fail_msg: "Missing variable 'nodes_to_label'"
 
-- debug:
+- name: groups
+  debug:
+    var: "{{ groups['target_host'] }}"
+- name: groups targethost
+  debug:
+    var: "{{ groups['target_host'] }}"
+
+- name: hostvars
+  debug:
     var: "{{ hostvars }}"
 
-- debug:
+- name: "nodes_to_label"
+  debug:
     var: "{{ nodes_to_label }}"
 
-- debug:
+- name: "hostvars[item]"
+  debug:
     var: "{{ hostvars[item] }}"
   loop: "{{ nodes_to_label }}"
 
-- debug:
+- name: "hostvars[nodes_to_label[0]]['hostname']"
+  debug:
     var: "{{ hostvars[nodes_to_label[0]]['hostname'] }}"
 
-- debug:
+- name: "hostvars['10.1.9.37']['hostname']"
+  debug:
     var: "{{ hostvars['10.1.9.37']['hostname'] }}"
 
 - name: "Add labels to k8s_node hosts"
