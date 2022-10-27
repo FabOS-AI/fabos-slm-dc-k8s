@@ -16,7 +16,7 @@
 
 - name: groups
   debug:
-    msg: "{{ groups['target_host'] }}"
+    msg: "{{ groups }}"
 - name: groups targethost
   debug:
     msg: "{{ groups['target_host'] }}"
@@ -34,17 +34,17 @@
     msg: "{{ hostvars[item] }}"
   loop: "{{ nodes_to_label }}"
 
-- name: "hostvars[nodes_to_label[0]]['hostname']"
+- name: "hostvars[nodes_to_label[0]]['ansible_hostname']"
   debug:
-    msg: "{{ hostvars[nodes_to_label[0]]['hostname'] }}"
+    msg: "{{ hostvars[nodes_to_label[0]]['ansible_hostname'] }}"
 
-- name: "hostvars['10.1.9.37']['hostname']"
+- name: "hostvars['10.1.9.37']['ansible_hostname']"
   debug:
-    msg: "{{ hostvars['10.1.9.37']['hostname'] }}"
+    msg: "{{ hostvars['10.1.9.37']['ansible_hostname'] }}"
 
 - name: "Add labels to k8s_node hosts"
   shell:
-    cmd: "kubectl label nodes {{ hostvars[item.0 ]['hostname'] | lower }} kubernetes.io/role={{ item.1 }}"
+    cmd: "kubectl label nodes {{ hostvars[item.0 ]['ansible_hostname'] | lower }} kubernetes.io/role={{ item.1 }}"
   when: not item.1 in (node_meta | json_query('[?metadata.name==`' + (item.0 | lower) + '`].metadata.labels.\"kubernetes.io/role\"') | default([]))
   ignore_errors: yes
   loop:  "{{ nodes_to_label |product(['worker'])|list }}"
