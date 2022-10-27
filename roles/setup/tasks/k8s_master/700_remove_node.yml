@@ -1,6 +1,6 @@
 - set_fact:
     scale_down_node_names: "{{ scale_down_node_names | default ([]) + [ hostvars[item].ansible_hostname ] }}"
-  loop: "{{ groups['scale_down_host'] }}"
+  loop: "{{ groups['target_host'] }}"
 
 - name: Cordon node(s)
   ansible.builtin.shell: "kubectl cordon {{ item }}"

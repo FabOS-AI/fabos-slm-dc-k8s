@@ -21,9 +21,9 @@
 
 
 - set_fact:
-    filter_exp: "{{ 'ID==\"' + resource_id + '\"' | urlencode() }}"
+    filter_exp: "{{ 'ID==\"' + resource_to_add_id + '\"' | urlencode() }}"
 
-- name: "Get Node info of resource with id '{{ resource_id }}'"
+- name: "Get Node info of resource with id '{{ resource_to_add_id }}'"
   uri:
     url: "{{ consul_url }}/v1/catalog/nodes?filter={{ filter_exp }}"
     method: GET
@@ -39,9 +39,9 @@
 - name: Set resource credentials
   set_fact:
     ip_address: "{{ node_info.Node }}"
-    username: "{{ lookup('hashi_vault', '{{ vault_lookup_base_info }} secret=resources/data/{{ resource_id }}:username') }}"
-    password: "{{ lookup('hashi_vault', '{{ vault_lookup_base_info }} secret=resources/data/{{ resource_id }}:password') }}"
-  no_log: true
+    username: "{{ lookup('hashi_vault', '{{ vault_lookup_base_info }} secret=resources/data/{{ resource_to_add_id }}:username') }}"
+    password: "{{ lookup('hashi_vault', '{{ vault_lookup_base_info }} secret=resources/data/{{ resource_to_add_id }}:password') }}"
+  no_log: false
 
 - name: Setup ansible inventory
   add_host:
@@ -53,4 +53,4 @@
     ansible_become_pass: "{{ password }}"
     ansible_python_interpreter: /usr/bin/python3
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
-  no_log: true
+  no_log: false

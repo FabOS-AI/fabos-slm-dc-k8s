@@ -23,7 +23,7 @@
       retries: 10
 
 - name: Converge - Install docker
-  hosts: all:!scale_up_host:!scale_down_host:!haproxy
+  hosts: all:!target_host:!haproxy
   gather_facts: no
   become: yes
   become_user: root
@@ -107,7 +107,7 @@
 #      set_fact:
 #        nodes_to_label: "{{ nodes_to_label|d([]) + [item] }}"
 #      loop: "{{ groups['k8s_node'] }}"
-#      when: item not in (groups['scale_up_host'] | default([]))
+#      when: item not in (groups['target_host'] | default([]))
 
     - include_role:
         name: setup

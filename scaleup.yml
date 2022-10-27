@@ -27,7 +27,7 @@
       retries: 10
 
 - name: Converge - Install docker
-  hosts: scale_up_host
+  hosts: target_host
   gather_facts: no
   become: yes
   become_user: root
@@ -39,7 +39,7 @@
         tasks_from: install.yml
 
 - name: Converge - Install k8s
-  hosts: scale_up_host
+  hosts: target_host
   gather_facts: no
   become: yes
   tasks:
@@ -59,7 +59,7 @@
         tasks_from: get_join.yml
 
 - name: Converge - Join node
-  hosts: scale_up_host
+  hosts: target_host
   gather_facts: no
   become: yes
   tasks:
@@ -78,4 +78,4 @@
         name: setup
         tasks_from: k8s_master/400_label_nodes.yml
       vars:
-        nodes_to_label: "{{ groups['scale_up_host'] }}"
+        nodes_to_label: "{{ groups['target_host'] }}"
