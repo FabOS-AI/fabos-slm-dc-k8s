@@ -34,7 +34,7 @@
   collections:
     - fabos.docker
   tasks:
-      include_role:
+    - include_role:
         name: fabos.docker.setup
         tasks_from: install.yml
 
