@@ -16,31 +16,31 @@
 
 - name: groups
   debug:
-    var: "{{ groups['target_host'] }}"
+    msg: "{{ groups['target_host'] }}"
 - name: groups targethost
   debug:
-    var: "{{ groups['target_host'] }}"
+    msg: "{{ groups['target_host'] }}"
 
 - name: hostvars
   debug:
-    var: "{{ hostvars }}"
+    msg: "{{ hostvars }}"
 
 - name: "nodes_to_label"
   debug:
-    var: "{{ nodes_to_label }}"
+    msg: "{{ nodes_to_label }}"
 
 - name: "hostvars[item]"
   debug:
-    var: "{{ hostvars[item] }}"
+    msg: "{{ hostvars[item] }}"
   loop: "{{ nodes_to_label }}"
 
 - name: "hostvars[nodes_to_label[0]]['hostname']"
   debug:
-    var: "{{ hostvars[nodes_to_label[0]]['hostname'] }}"
+    msg: "{{ hostvars[nodes_to_label[0]]['hostname'] }}"
 
 - name: "hostvars['10.1.9.37']['hostname']"
   debug:
-    var: "{{ hostvars['10.1.9.37']['hostname'] }}"
+    msg: "{{ hostvars['10.1.9.37']['hostname'] }}"
 
 - name: "Add labels to k8s_node hosts"
   shell:
