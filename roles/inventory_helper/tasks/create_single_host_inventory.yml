@@ -45,7 +45,7 @@
 
 - name: Setup ansible inventory
   add_host:
-    name: "{{ ip_address }}"
+    name: "{{ node_info.Address }}"
     groups:
       - target_host
       - k8s_node
