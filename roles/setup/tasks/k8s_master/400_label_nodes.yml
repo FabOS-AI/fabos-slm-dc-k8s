@@ -16,7 +16,7 @@
 
 - name: "Add labels to k8s_node hosts"
   shell:
-    cmd: "kubectl label nodes {{ item.0 | lower }} kubernetes.io/role={{ item.1 }}"
+    cmd: "kubectl label nodes {{ hostvars[item.0 ]['hostname'] | lower }} kubernetes.io/role={{ item.1 }}"
   when: not item.1 in (node_meta | json_query('[?metadata.name==`' + (item.0 | lower) + '`].metadata.labels.\"kubernetes.io/role\"') | default([]))
   ignore_errors: yes
   loop:  "{{ nodes_to_label |product(['worker'])|list }}"
