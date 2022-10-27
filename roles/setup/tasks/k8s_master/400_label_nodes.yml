@@ -14,6 +14,10 @@
     that: "nodes_to_label is defined"
     fail_msg: "Missing variable 'nodes_to_label'"
 
+- debug:
+    var: "{{ hostvars[item] }}"
+  loop: "{{ nodes_to_label }}"
+
 - name: "Add labels to k8s_node hosts"
   shell:
     cmd: "kubectl label nodes {{ hostvars[item.0 ]['hostname'] | lower }} kubernetes.io/role={{ item.1 }}"
