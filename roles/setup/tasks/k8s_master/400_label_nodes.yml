@@ -15,6 +15,9 @@
     fail_msg: "Missing variable 'nodes_to_label'"
 
 - debug:
+    var: "{{ hostvars }}"
+
+- debug:
     var: "{{ hostvars[item] }}"
   loop: "{{ nodes_to_label }}"
 
