@@ -48,3 +48,6 @@
 - name: Parse registered variable
   set_fact:
     recap_kubeconfig: "{{ kubeconf_output.stdout }}"
+  run_once: true
+  delegate_to: localhost
+  delegate_facts: true
