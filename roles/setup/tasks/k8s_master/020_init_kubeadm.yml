@@ -41,6 +41,10 @@
     state: link
     mode: 0644
 
-- name: Read admin.conf to variable
+- name: Read admin.conf to registered variable
+  command: "cat /etc/kubernetes/admin.conf"
+  register: kubeconf_output
+
+- name: Parse registered variable
   set_fact:
-    recap_kubeconfig: "{{lookup('ansible.builtin.file', '/etc/kubernetes/admin.conf') }}"
+    recap_kubeconfig: "{{ kubeconf_output.stdout }}"
