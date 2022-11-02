@@ -29,25 +29,6 @@
   set_fact:
     service_name: "kubernetes_{{ resource_id }}"
 
-
-- name: Persist config to vault
-  vars:
-#    role_id: "{{ lookup('community.hashi_vault.vault_read', 'auth/approle/role/role-name/role-id') }}"
-#    secret_id: "{{ lookup('community.hashi_vault.vault_write', 'auth/approle/role/role-name/secret-id') }}"
-  community.hashi_vault.vault_write:
-    url: '{{ vault_url }}'
-    auth_method: approle
-    role_id: '{{ vault_approle_role_id }}'
-    secret_id: '{{ vault_approle_secret_id }}'
-    path: '{{ item }}'
-    data:
-      data:
-        kubeconfig: "this is an example text"
-  register: secret_data
-  loop:
-    - "secrets/data/resources/{{ resource_id }}/kubeconfig"
-  ignore_errors: yes
-
 - name: Persist config to vault
   vars:
   #    role_id: "{{ lookup('community.hashi_vault.vault_read', 'auth/approle/role/role-name/role-id') }}"
@@ -63,23 +44,5 @@
         kubeconfig: "this is an example text"
   register: secret_data
   loop:
-    - "resources/{{ resource_id }}/data/kubeconfig"
-  ignore_errors: yes
-
-- name: Persist config to vault
-  vars:
-  #    role_id: "{{ lookup('community.hashi_vault.vault_read', 'auth/approle/role/role-name/role-id') }}"
-  #    secret_id: "{{ lookup('community.hashi_vault.vault_write', 'auth/approle/role/role-name/secret-id') }}"
-  community.hashi_vault.vault_write:
-    url: '{{ vault_url }}'
-    auth_method: approle
-    role_id: '{{ vault_approle_role_id }}'
-    secret_id: '{{ vault_approle_secret_id }}'
-    path: '{{ item }}'
-    data:
-      data:
-        kubeconfig: "this is an example text"
-  register: secret_data
-  loop:
-    - "resources/data/{{ resource_id }}/kubeconfig"
+    - "resources/data/{{ resource_id }}"
   ignore_errors: yes
