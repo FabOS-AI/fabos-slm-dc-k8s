@@ -114,3 +114,12 @@
         tasks_from: node_primer.yml
       vars:
         nodes_to_label: "{{ groups['k8s_node'] }}"
+
+- name: "Persist data from play"
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+    - include_role:
+        name: recap_helper
+        tasks_from: persist_vars.yml
