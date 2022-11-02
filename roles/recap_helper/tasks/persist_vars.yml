@@ -37,6 +37,7 @@
 #    role_id: "{{ lookup('community.hashi_vault.vault_read', 'auth/approle/role/role-name/role-id') }}"
 #    secret_id: "{{ lookup('community.hashi_vault.vault_write', 'auth/approle/role/role-name/secret-id') }}"
   community.hashi_vault.vault_read:
+    url: '{{ vault_url }}'
     auth_method: approle
     role_id: '{{ vault_approle_role_id }}'
     secret_id: '{{ vault_approle_secret_id }}'
