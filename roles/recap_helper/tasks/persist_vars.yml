@@ -20,7 +20,7 @@
 - name: Ensure required modules are installed
   pip:
     name:
-      - hvac>1.0.2
+      - hvac==1.0.2
 
 - set_fact:
     vault_lookup_base_info: "url={{ vault_url }} auth_method=approle role_id={{ vault_approle_role_id }} secret_id={{ vault_approle_secret_id }}"
