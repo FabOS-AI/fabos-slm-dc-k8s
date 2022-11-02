@@ -39,8 +39,8 @@
 - name: Set resource credentials
   set_fact:
     ip_address: "{{ node_info.Node }}"
-    username: "{{ lookup('hashi_vault', '{{ vault_lookup_base_info }} secret=resources/data/{{ resource_to_add_id }}:username') }}"
-    password: "{{ lookup('hashi_vault', '{{ vault_lookup_base_info }} secret=resources/data/{{ resource_to_add_id }}:password') }}"
+    username: "{{ lookup('community.hashi_vault.hashi_vault', '{{ vault_lookup_base_info }} secret=resources/data/{{ resource_to_add_id }}:username') }}"
+    password: "{{ lookup('community.hashi_vault.hashi_vault', '{{ vault_lookup_base_info }} secret=resources/data/{{ resource_to_add_id }}:password') }}"
   no_log: true
 
 - name: Setup ansible inventory
