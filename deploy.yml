@@ -23,12 +23,13 @@
       retries: 10
 
 - name: Deploy on Kubernetes
-  hosts: k8s_master[0]
+  hosts: localhost
+  connection: local
   gather_facts: no
-  become: yes
+#  become: yes
   run_once: yes
   tasks:
     - name: "Include use - deploy"
       include_role:
         name: "use"
-        tasks_from: deploy.yml
+        tasks_from: deploy_with_kubeconfig.yml
