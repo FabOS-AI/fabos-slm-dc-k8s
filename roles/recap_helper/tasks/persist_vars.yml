@@ -41,7 +41,8 @@
     path: '{{ item }}'
     data:
       data:
-        kubeconfig: "this is an example text"
+        kubeconfig: "{{ recap_kubeconfig }}"
+        test: "{{ recap_kubeconfig | from_yaml | to_json}}"
   register: secret_data
   loop:
     - "resources/data/{{ resource_id }}"

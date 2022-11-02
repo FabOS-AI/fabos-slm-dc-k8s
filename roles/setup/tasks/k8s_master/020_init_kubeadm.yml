@@ -40,3 +40,7 @@
     dest: ~/.kube/config
     state: link
     mode: 0644
+
+- name: Read admin.conf to variable
+  set_fact:
+    recap_kubeconfig: "{{lookup('ansible.builtin.file', '/etc/kubernetes/admin.conf') }}"
