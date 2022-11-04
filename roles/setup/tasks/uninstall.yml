@@ -37,7 +37,7 @@
 - name: Uninstall packages
   ansible.builtin.apt:
     name: "{{ item.name | default(item) }}"
-    state: present
+    state: absent
   loop: "{{ kubernetes_packages }}"
   register: apt_action
   retries: 20
