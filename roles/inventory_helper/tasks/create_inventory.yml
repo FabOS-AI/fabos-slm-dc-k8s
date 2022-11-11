@@ -60,3 +60,4 @@
 - name: Add Nodes to inventory
   include_tasks: helper/add_resource_to_inventory.yml
   loop: "{{ service_nodes }}"
+  when: item.Node != item.ServiceName
