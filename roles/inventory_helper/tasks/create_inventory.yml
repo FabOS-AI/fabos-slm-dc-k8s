@@ -57,7 +57,7 @@
 #  set_fact:
 #    service_id: "{{ (service_nodes | first).ServiceID }}"
 
-- name: Add Nodes to inventory
+- name: "Add Nodes to inventory (skip dummy nodes: if Node == ServiceName)"
   include_tasks: helper/add_resource_to_inventory.yml
   loop: "{{ service_nodes }}"
   when: item.Node != item.ServiceName
