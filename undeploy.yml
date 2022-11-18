@@ -22,6 +22,26 @@
       until: setup_result.failed != true
       retries: 10
 
+- name: Check required parameters from Vault
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  run_once: yes
+  tasks:
+    - name: "Read 'kubeconfig' from Vault"
+      set_fact:
+        kubeconfig: "{{ lookup('community.hashi_vault.hashi_vault', '{{ vault_lookup_base_info }} secret=resources/data/{{ resource_id }}:kubeconfig') }}"
+      no_log: yes
+    - name: "Read 'namespace' from Vault"
+      set_fact:
+        kubeconfig: "{{ lookup('community.hashi_vault.hashi_vault', '{{ vault_lookup_base_info }} secret=resources/data/{{ resource_id }}:namespace') }}"
+      no_log: yes
+    - name: "Check required variables"
+      assert:
+        that: "{{ item.name }} is defined"
+        fail_msg: "Missing variable '{{ item.name }}': {{ item.description }}"
+      loop: "{{ deployment_parameters }}"
+
 - name: Undeploy from localhost
   hosts: localhost
   connection: local
