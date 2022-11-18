@@ -33,11 +33,11 @@
         file: ./playbooks/vars/main.yml
     - name: "Read 'kubeconfig' from Vault"
       set_fact:
-        kubeconfig: "{{ lookup('community.hashi_vault.hashi_vault', '{{ vault_lookup_base_info }} secret=resources/data/{{ resource_id }}:kubeconfig') }}"
+        kubernetes_kubeconfig: "{{ lookup('community.hashi_vault.hashi_vault', '{{ vault_lookup_base_info }} secret=resources/data/{{ resource_id }}:kubeconfig') }}"
       no_log: yes
     - name: "Read 'namespace' from Vault"
       set_fact:
-        kubeconfig: "{{ lookup('community.hashi_vault.hashi_vault', '{{ vault_lookup_base_info }} secret=resources/data/{{ resource_id }}:namespace') }}"
+        kubernetes_namespace: "{{ lookup('community.hashi_vault.hashi_vault', '{{ vault_lookup_base_info }} secret=resources/data/{{ resource_id }}:namespace') }}"
       no_log: yes
     - name: "Check required variables"
       assert:

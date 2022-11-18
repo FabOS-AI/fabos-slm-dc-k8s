@@ -11,10 +11,10 @@ deployment_parameters:
     description: "Content of Kubernetes manifest file."
   }
   - {
-    name: "kubeconfig",
+    name: "kubernetes_kubeconfig",
     description: "Content of Kubernetes kubeconfig file."
   }
   - {
-      name: "namespace",
+      name: "kubernetes_namespace",
       description: "The Kubernetes namespace to be deployed to."
   }
