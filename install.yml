@@ -35,7 +35,7 @@
 
 - name: Converge - Install haproxy
   hosts: haproxy
-  gather_facts: no
+  gather_facts: yes
   become: yes
   tasks:
     - name: "Include setup - haproxy"
