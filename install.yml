@@ -8,23 +8,9 @@
         name: inventory_helper
         tasks_from: create_inventory.yml
 
-- name: Converge - Gather facts
-  hosts: all
-  gather_facts: no
-  become: yes
-  tasks:
-    - name: Gather Facts
-      ansible.builtin.setup:
-        gather_subset:
-          - min
-          - network
-      register: setup_result
-      until: setup_result.failed != true
-      retries: 10
-
 - name: Converge - Install docker
   hosts: all:!target_host:!haproxy
-  gather_facts: no
+  gather_facts: yes
   become: yes
   become_user: root
   tasks:
