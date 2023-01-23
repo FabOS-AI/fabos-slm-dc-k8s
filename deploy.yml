@@ -43,7 +43,7 @@
     - name: "Set namespace to service_id (since namespace seems not defined in vault, most likely due to cluster was installed by capability)"
       set_fact:
         kubernetes_namespace: "{{ service_id }}"
-      when: "({{ item.name }} is undefined) or ({{ item.name }} | length > 0)"
+      when: "({{ kubernetes_namespace }} is undefined) or ({{ kubernetes_namespace }} | length > 0)"
     - name: "Check required variables"
       assert:
         that: "{{ item.name }} is defined and {{ item.name }} | length > 0"
