@@ -48,5 +48,5 @@ backend kubernetes-master-nodes
     balance roundrobin
     option tcp-check
     {% for host in groups['k8s_master'] %}
-        server {{ hostvars[host]['ansible_facts']['hostname'] }} {{ hostvars[host]['ansible_default_ipv4']['address'] }}:6443 check fall 3 rise 2
+        server {{ hostvars[host]['ansible_facts']['hostname'] if hostvars[host]['ansible_facts']['hostname'] is defined else hostvars[host]['ansible_default_ipv4']['address'] }} {{ hostvars[host]['ansible_default_ipv4']['address'] }}:6443 check fall 3 rise 2
     {% endfor %}
