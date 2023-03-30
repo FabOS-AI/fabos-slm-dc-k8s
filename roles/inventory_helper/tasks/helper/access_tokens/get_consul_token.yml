@@ -1,0 +1,3 @@
+---
+- ansible.builtin.set_fact:
+    consul_token: "{{ consul_root_token }}"

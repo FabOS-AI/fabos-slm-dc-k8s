@@ -1,0 +1,7 @@
+---
+- ansible.builtin.set_fact:
+    vault_token: "{{ vault_root_token }}"
+
+
+#- ansible.builtin.set_fact:
+#    vault_token: "{{ output_vault_login.json.SecretID }}"
