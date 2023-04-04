@@ -31,6 +31,8 @@
     - name: "Include vars file"
       include_vars:
         file: ./playbooks/vars/main.yml
+    - debug:
+        var: vault_lookup_base_info
     - name: "Read 'kubeconfig' from Vault"
       set_fact:
         kubernetes_kubeconfig: "{{ lookup('community.hashi_vault.hashi_vault', '{{ vault_lookup_base_info }} secret=resources/data/{{ resource_id }}:kubeconfig') }}"
