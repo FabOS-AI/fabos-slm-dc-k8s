@@ -35,6 +35,16 @@
         var: vault_lookup_base_info
     - debug:
         var: resource_id
+    - name: Get config from environment variables
+      ansible.builtin.set_fact:
+        vault_url: "{{ lookup('env', 'VAULT_URL') }}"
+        vault_approle_role_id: "{{ lookup('env', 'VAULT_APPROLE_ROLE_ID') }}"
+        vault_approle_secret_id: "{{ lookup('env', 'VAULT_APPROLE_SECRET_ID') }}"
+      # no_log: true
+    - name: Set Vault lookup base info
+      ansible.builtin.set_fact:
+        vault_lookup_base_info: "url={{ vault_url }} auth_method=approle role_id={{ vault_approle_role_id }} secret_id={{ vault_approle_secret_id }}"
+      # no_log: true
     - name: "Read 'kubeconfig' from Vault (old)"
       set_fact:
         kubernetes_kubeconfig: "{{ lookup('hashi_vault', '{{ vault_lookup_base_info }} secret=resources/data/{{ resource_id }}:kubeconfig') }}"
