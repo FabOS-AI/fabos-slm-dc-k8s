@@ -6,5 +6,5 @@ roles:
     name: molecule_vsphere
   - src: "git+https://github.com/FabOS-AI/fabos-slm-inventory-helper.git"
     scm: git
-    version: main
+    version: fix_empty-vars
     name: inventory_helper
