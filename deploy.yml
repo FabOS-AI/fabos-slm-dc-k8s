@@ -2,16 +2,16 @@
 - name: "Create inventory with target host(s)"
   hosts: localhost
   connection: local
-  gather_facts: no
+  gather_facts: false
   tasks:
-    - include_role:
+    - name: Use inventory Helper to setup ansible inventory
+      ansible.builtin.include_role:
         name: inventory_helper
-        tasks_from: create_inventory.yml
 
 - name: Converge - Gather facts
   hosts: all
-  gather_facts: no
-  become: yes
+  gather_facts: false
+  become: true
   tasks:
     - name: Gather Facts
       ansible.builtin.setup:
@@ -25,8 +25,8 @@
 - name: Check required parameters from Vault
   hosts: localhost
   connection: local
-  gather_facts: no
-  run_once: yes
+  gather_facts: false
+  run_once: true
   tasks:
     - name: "Include vars file"
       include_vars:
@@ -34,11 +34,11 @@
     - name: "Read 'kubeconfig' from Vault"
       set_fact:
         kubernetes_kubeconfig: "{{ lookup('community.hashi_vault.hashi_vault', '{{ vault_lookup_base_info }} secret=resources/data/{{ resource_id }}:kubeconfig') }}"
-      no_log: yes
+      no_log: true
     - name: "Read 'namespace' from Vault"
       set_fact:
         kubernetes_namespace: "{{ lookup('community.hashi_vault.hashi_vault', '{{ vault_lookup_base_info }} secret=resources/data/{{ resource_id }}:namespace') }}"
-      no_log: yes
+      no_log: true
       ignore_errors: true
     - name: "Set namespace to service_id (since namespace seems not defined in vault, most likely due to cluster was installed by capability)"
       set_fact:
@@ -57,7 +57,7 @@
 - name: Deploy on Kubernetes
   hosts: localhost
   connection: local
-  gather_facts: no
+  gather_facts: false
 #  become: yes
   run_once: yes
   tasks:
