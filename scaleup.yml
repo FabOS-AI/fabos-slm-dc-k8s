@@ -7,6 +7,12 @@
     - name: Use inventory Helper to setup ansible inventory
       ansible.builtin.include_role:
         name: inventory_helper
+    - name: "Override service_name by resource_to_add_id '({{ resource_to_add_id }})'"
+      set_fact:
+        service_name: "{{ resource_to_add_id }}"
+    - name: Use inventory Helper to setup ansible inventory (resource_to_add)
+      ansible.builtin.include_role:
+        name: inventory_helper
 
 - name: Converge - Gather facts
   hosts: all
