@@ -4,6 +4,13 @@
   connection: local
   gather_facts: no
   tasks:
+    - name: Check that all required variables are available
+      ansible.builtin.assert:
+        that:
+          - (keycloak_token is defined) and (keycloak_token|length > 0)
+          - (supported_connection_types is defined) and (supported_connection_types|length > 0)
+          - (resource_service_id is defined) and (resource_service_id|length > 0)
+          - (resource_to_add_service_id is defined) and (resource_to_add_service_id|length > 0)
     - name: debug inventory
       debug:
        var: ansible_inventory.groups
