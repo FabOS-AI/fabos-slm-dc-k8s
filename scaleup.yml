@@ -18,16 +18,17 @@
         extra_groups: []
     - name: debug inventory
       debug:
-       var: ansible_inventory.groups
+       var: ansible_inventory
     - name: debug groups
       debug:
        var: groups['target_host']
     - name: reset groups
       set_fact:
-        ansible_inventory.groups: []
+        ansible_inventory:
+          groups: []
     - name: debug inventory
       debug:
-       var: ansible_inventory.groups
+       var: ansible_inventory
     - name: (2) Use inventory Helper to setup target_host ansible inventory
       ansible.builtin.import_role:
         name: inventory_helper
