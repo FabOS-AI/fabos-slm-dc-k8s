@@ -4,22 +4,22 @@
   connection: local
   gather_facts: no
   tasks:
+    - name: "(1) use id of cluster to build inventory"
+      set_fact:
+        service_name: "{{ resource_service_id }}"
+    - debug:
+        var: service_name
     - name: Use inventory Helper to setup ansible inventory
       ansible.builtin.include_role:
         name: inventory_helper
-    - debug:
-        var: resource_to_add_service_id
-    - debug:
-        var: service_name
-    - set_fact:
+    - name: "(2) use id of resource (to add) to build inventory"
+      set_fact:
         service_name: "{{ resource_to_add_service_id }}"
     - debug:
         var: service_name
-    - name: Use inventory Helper to setup ansible inventory (resource_to_add_service_id)
+    - name: Use inventory Helper to setup ansible inventory
       ansible.builtin.include_role:
         name: inventory_helper
-      vars:
-        service_name: "{{ resource_to_add_service_id }}"
 
 - name: Converge - Gather facts
   hosts: all
