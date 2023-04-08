@@ -9,6 +9,12 @@
         name: inventory_helper
     - debug:
         var: resource_to_add_service_id
+    - debug:
+        var: service_name
+    - set_fact:
+        service_name: "{{ resource_to_add_service_id }}"
+    - debug:
+        var: service_name
     - name: Use inventory Helper to setup ansible inventory (resource_to_add_service_id)
       ansible.builtin.include_role:
         name: inventory_helper
