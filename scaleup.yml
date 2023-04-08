@@ -7,6 +7,8 @@
     - name: Use inventory Helper to setup ansible inventory
       ansible.builtin.include_role:
         name: inventory_helper
+    - debug:
+        var: resource_to_add_service_id
     - name: Use inventory Helper to setup ansible inventory (resource_to_add_service_id)
       ansible.builtin.include_role:
         name: inventory_helper
