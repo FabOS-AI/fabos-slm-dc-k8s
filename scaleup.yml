@@ -20,6 +20,8 @@
     - name: Use inventory Helper to setup ansible inventory
       ansible.builtin.include_role:
         name: inventory_helper
+      vars:
+        extra_groups: ["target_host"]
 
 - name: Converge - Gather facts
   hosts: all
