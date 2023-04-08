@@ -19,8 +19,11 @@
     - debug:
         msg: "{{ service_name }} - {{ extra_groups }}"
     - name: Use inventory Helper to setup ansible inventory
-      ansible.builtin.include_role:
+      ansible.builtin.import_role:
         name: inventory_helper
+      vars:
+        service_name: "{{ resource_to_add_service_id }}"
+        extra_groups: ["target_host"]
 
 - name: Converge - Gather facts
   hosts: all
