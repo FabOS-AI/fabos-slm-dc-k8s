@@ -4,10 +4,10 @@
   connection: local
   gather_facts: no
   tasks:
-    - name: inventory
+    - name: debug inventory
       debug:
        var: ansible_inventory.groups
-    - name: groups
+    - name: debug groups
       debug:
        var: groups['target_host']
     - name: (1) Use inventory Helper to setup cluster ansible inventory
@@ -16,12 +16,18 @@
       vars:
         service_name: "{{ resource_service_id }}"
         extra_groups: []
-    - name: inventory
+    - name: debug inventory
       debug:
        var: ansible_inventory.groups
-    - name: groups
+    - name: debug groups
       debug:
        var: groups['target_host']
+    - name: reset groups
+      set_fact:
+        ansible_inventory.groups: []
+    - name: debug inventory
+      debug:
+       var: ansible_inventory.groups
     - name: (2) Use inventory Helper to setup target_host ansible inventory
       ansible.builtin.import_role:
         name: inventory_helper
