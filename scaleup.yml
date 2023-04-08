@@ -15,13 +15,12 @@
     - name: "(2) use id of resource (to add) to build inventory"
       set_fact:
         service_name: "{{ resource_to_add_service_id }}"
+        extra_groups: ["target_host"]
     - debug:
-        var: service_name
+        msg: "{{ service_name }} - {{ extra_groups }}"
     - name: Use inventory Helper to setup ansible inventory
       ansible.builtin.include_role:
         name: inventory_helper
-      vars:
-        extra_groups: ["target_host"]
 
 - name: Converge - Gather facts
   hosts: all
